@@ -1,0 +1,56 @@
+<ion-view view-title="EasyLaundry">
+  <div class="tabs-striped tabs-top tabs-icon-top tabs-background-stable tabs-color-dark" >
+    <div class="tabs" ng-class="{'shownTabs':hideTabs}">
+      <a class="tab-item"  ng-class="{'active': active==0, 'shownEachTab':hideTabs && active==0}" ng-click="changeTab(0); active=0" ng-show="!hideTabs || active==0">
+        <img src="img/laundry2.png" class="icon smallicon">
+        Laundry
+      </a>
+      <a class="tab-item" ng-class="{'active': active==1, 'shownEachTab':hideTabs && active==1}" ng-click="changeTab(1); active=1" ng-show="!hideTabs || active==1">
+        <img src="img/hanger.png" class="icon smallicon">
+        Dry Laundry
+      </a>
+      <a class="tab-item" ng-class="{'active': active==2, 'shownEachTab':hideTabs && active==2}" ng-click="changeTab(2); active=2" ng-show="!hideTabs || active==2">
+        <img src="img/complete4.png" class="icon smallicon">
+        Ironed Laundry
+      </a>
+    </div>
+  </div>
+  <div ng-if="descriptionPlan" class="bar bar-subheader background-stable-transparent animate">
+    <div class="row no-tall" ng-if="descriptionText">
+      <h4 class="col col-34 px-14 no-margin-tall">
+        Pricing
+      </h4>
+      <h4 class="col col-66 px-14 no-margin-tall description-right">
+        Description
+      </h4>
+    </div>
+    <div class="row no-tall"  ng-if="descriptionText">
+      <span class="col col-34 px-12 borderright">
+        {{plan[active].pricing}}
+      </span>
+      <span class="col col-66 px-12 description-right">
+        {{plan[active].description}}
+      </span>
+    </div>
+  </div>
+  <ion-content scroll="false">
+    <div id="map" data-tap-disabled="true"></div>
+    <button class="button button-fab button-fab-bottom-right search button-positive icon ion-android-search waves-effect waves-button waves-light"></button>
+    <button ng-click="centerOnMe()" class="button button-fab button-fab-bottom-right location button-positive icon ion-navigate waves-effect waves-button waves-light"></button>
+    <img src="img/pinx24.png" class="pin">
+    <div class="mid-bar dark-bg z1 pickup-button-div">
+      <div ng-if="address.street && address.neighborhood && !editingAddress">
+        <h3 ng-if="!loading">{{address.street}}&nbsp;<i ng-if="address.street && address.neighborhood" ng-click="editAddress(true)" class="icon ion-edit"></i></h3>
+        <h3 ng-if="loading">Loading..</h3>
+        <p>{{address.neighborhood}}</p>
+      </div>
+      <div ng-if="editingAddress">
+        <input ng-blur="editAddress(false)" type="text" ng-model="address.street" class="inputAddress">
+        <p>{{address.neighborhood}}</p>
+      </div>
+      <button class="button button-block button-calm" ng-click="order()">
+        Set pickup
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,49 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear ion-android-close" ng-click="closeOrder()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+
+    <div class="list">
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-android-calendar"><small class="overPlease" ng-class="{'elementPulse':whenTime}">when?</small></i>
+        <span class="line-24">Now</span>
+        <span class="changeit line-4" ng-click="notNow()">(not now?)</span>
+      </a>
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-android-pin"><small class="overPlease" ng-class="{'elementPulse':fromTime}">from</small></i>
+        <span>{{address.street}}</span>
+        <br><small>{{address.neighborhood}}</small>
+      </a>
+      <a class="item item-icon-left" href="#" ng-style="inputStyle" ng-click="editToAddress(true)">
+        <i class="icon ion-flag"><small class="overPlease" ng-class="{'elementPulse':toTime}">to</small></i>
+        <span class="grey-color" ng-if="!toAddress.street && !editingToAddress"> {{address.street}}</span>
+        <div ng-if="editingToAddress">
+          <input ng-blur="editToAddress(false)" type="text" placeholder="Enter a new address" ng-model="toAddress.street" class="inputToAddress">
+        </div>
+        <span class="" ng-if="toAddress.street && !editingToAddress">{{toAddress.street}}</span>
+        <span class="changeit" ng-click="editToAddress(true)" ng-if="!editingToAddress">change</span>
+        <br><small class="grey-color">{{address.neighborhood}}</small>
+      </a>
+      <a class="item item-icon-left" href="#" ng-click="editNote(true)" >
+        <i class="icon ion-compose"></i>
+        <span class="grey-color line-24">Note to laundry</span>
+        <small class="grey-color" ng-if="!note.text">Optional</small>
+        <div ng-if="!isEditing && note.text" class="nowrap">{{note.text}}</div>
+      </a>
+      <div class="list">
+        <label class="item item-input">
+          <textarea ng-if="isEditing" ng-blur="editNote(false)" ng-model="note.text" class="inputToAddress">
+          </textarea>
+        </label>
+      </div>
+    </div>
+    <div class="mid-bar dark-bg z1 pickup-button-div-order">
+      <button class="button button-block button-energized" ng-click="order()">
+        Order now
+      </button>
+    </div>
+  </ion-content>
+</ion-modal-view>
