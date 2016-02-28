@@ -1,0 +1,18 @@
+<ion-view hide-nav-bar="true">
+  <ion-content scroll="false" has-bouncing="false">
+    <div class="ionic login " style="background-image: url('img/easy.jpg'); background-size: cover">
+      <div class="hero no-header flat">
+        <div class="content">
+          <img src="img/socks.png" style="text-align: center; width: 29%;">
+          <h1 style="color: #f0f0f0">EasyLaundry</h1>
+        </div>
+      </div>
+      <div class="list">
+        <label class="item item-input item-md-label" placeholder="Phone" highlight-color="balanced" type="text"><input type="text" ng-model="user.phone" ng-class="{'used': user.phone}"><span class="input-label">Phone</span><div class="highlight highlight-balanced"></div></label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="next()">Next</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

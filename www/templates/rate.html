@@ -4,8 +4,8 @@
   </ion-header-bar>
   <ion-content has-bouncing="true">
     <br>
-    <div>
-      <p class="color-yellow abs" style="text-align: center;">
+    <div >
+      <p class="color-yellow abs" style="text-align: center;width:100%">
         <i class="icon  font-big" ng-click="rating(1)" ng-class="{'ion-android-star-outline':!doneRating, 'ion-android-star':doneRating}"></i>
         <i class="icon font-big" ng-click="rating(2)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<2, 'ion-android-star':doneRating>=2}"></i>
         <i class="icon font-big" ng-click="rating(3)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<3, 'ion-android-star':doneRating>=3}"></i>
@@ -13,6 +13,7 @@
         <i class="icon font-big" ng-click="rating(5)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<5, 'ion-android-star':doneRating>=5}"></i>
       </p>
     </div>
+    <br>
     <br>
     <h3 style="text-align: center;">
       Do you have any comment?

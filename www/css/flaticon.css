@@ -38,7 +38,13 @@ font-style: normal;
   font-size: 28px !important;
 }
 .list .item{
+  /*
   min-height: 75px !important;
+  Changed in order to fix the modal-phone*/
+  min-height: 75px !important;
+}
+.ngdialog-message .list .item{
+  min-height: 1px !important;
 }
 .list a.item span{
   font-size: 17px;

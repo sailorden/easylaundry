@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngDialog'])
 
     .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -22,7 +22,31 @@ angular.module('starter.controllers', [])
         }
       }
     }])
-    .controller('PlaylistsCtrl', function($scope, $ionicBackdrop, $ionicLoading, $compile, ionicMaterialInk, ionicMaterialMotion, $ionicModal, $timeout, $state) {
+    .controller('PlaylistsCtrl', function($scope, ngDialog,$state, $ionicBackdrop, $ionicLoading, $compile, ionicMaterialInk, ionicMaterialMotion, $ionicModal, $timeout, $state) {
+      $scope.dialog1 = {};
+      $scope.dialog2 = {};
+      $timeout(function(){
+        $scope.dialog1 = ngDialog.open({
+          template: 'templates/phone-modal.html',
+          className: 'ngdialog-theme-flat',
+          scope: $scope
+        });
+        $timeout(function(){
+          $ionicLoading.hide();
+          $("#mobile-number").intlTelInput();
+        },1000);
+      });
+      $scope.continue = function(){
+        ngDialog.close($scope.dialog1);
+        $scope.dialog2 = ngDialog.open({
+          template: 'templates/code-modal.html',
+          className: 'ngdialog-theme-flat',
+          scope: $scope
+        });
+      };
+      $scope.finishCode = function(){
+        ngDialog.close($scope.dialog2);
+      };
       $scope.pinImg = true;
       $scope.active = 1;
       $scope.plan = [
@@ -36,7 +60,6 @@ angular.module('starter.controllers', [])
           pricing: "~50 ₪  (12 USD)",
           description: "You will get your clothes clean with nice smell, ironed and folded."}
       ]
-
       ionicMaterialInk.displayEffect();
       ionicMaterialMotion.ripple();
       var geocoder = new google.maps.Geocoder;
@@ -234,6 +257,10 @@ angular.module('starter.controllers', [])
             $scope.address.picture+="&markers=icon:http://i.imgur.com/v2OTGza.png?2|"+$scope.address.geolocation+"&key=AIzaSyB_NUmb6TXFR6CpHOlkMpSipswTA_K6FiI";
             console.log($scope.address);
             $scope.hideTabs = true;
+            $scope.bottomStyle = {bottom: "95px"};
+            $timeout(function(){
+              $scope.bottomStyle = {bottom: "94px"};
+            }, 1000);
             $scope.modal.show();
             $timeout(function(){
               $scope.whenTime = true;
@@ -264,16 +291,27 @@ angular.module('starter.controllers', [])
         $timeout(function(){
           $ionicBackdrop.release();
           $scope.hideTabs = true;
+          $scope.bottomStyle = {bottom: "95px"};
+          $timeout(function(){
+            $scope.bottomStyle = {bottom: "94px"};
+          }, 1000);
           $scope.modal2.show();
-        });
+        }, 1000);
       }
       $scope.finish = function(){
         $scope.modal2.hide();
         $scope.pinImg = true;
         $state.go('app.finished', {"address": JSON.stringify($scope.address)});
+
       }
     })
     .controller('PlaylistCtrl', function($scope, $stateParams) {
+    })
+    .controller('WelcomeCtrl', function($scope, $stateParams, $state) {
+      $scope.user = {};
+      $scope.next = function(){
+        $state.go('app.playlists');
+      };
     })
     .controller('BrowseCtrl', function($scope, $stateParams,$ionicModal, $state) {
       $scope.info = JSON.parse($stateParams.address);
