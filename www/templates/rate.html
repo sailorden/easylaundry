@@ -1,0 +1,40 @@
+<ion-modal-view class="modal-rate">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title title-center">Rate Lucas</h1>
+  </ion-header-bar>
+  <ion-content has-bouncing="true">
+    <br>
+    <div>
+      <p class="color-yellow abs" style="text-align: center;">
+        <i class="icon  font-big" ng-click="rating(1)" ng-class="{'ion-android-star-outline':!doneRating, 'ion-android-star':doneRating}"></i>
+        <i class="icon font-big" ng-click="rating(2)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<2, 'ion-android-star':doneRating>=2}"></i>
+        <i class="icon font-big" ng-click="rating(3)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<3, 'ion-android-star':doneRating>=3}"></i>
+        <i class="icon font-big" ng-click="rating(4)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<4, 'ion-android-star':doneRating>=4}"></i>
+        <i class="icon font-big" ng-click="rating(5)" ng-class="{'ion-android-star-outline':!doneRating || doneRating<5, 'ion-android-star':doneRating>=5}"></i>
+      </p>
+    </div>
+    <br>
+    <h3 style="text-align: center;">
+      Do you have any comment?
+    </h3>
+    <div class="card">
+      <div class="list">
+        <label class="item item-input">
+          <textarea placeholder="Comments" rows="10"></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <small>At this time this comments are not public, they help us to improve the system</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-positive" ng-click="send()">
+          Send
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

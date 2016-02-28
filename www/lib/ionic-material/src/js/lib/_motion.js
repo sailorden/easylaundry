@@ -8,10 +8,10 @@ module.exports = function(angularApp) {
 
         /*============================================================================*/
         /* HELPERS (non-exports)
-        /=============================================================================*
-        /   Abstract common lookups and manipulations in case better alternatives
-        /   arise or future cross-platform differences warrant separate handling
-        /=============================================================================*/
+         /=============================================================================*
+         /   Abstract common lookups and manipulations in case better alternatives
+         /   arise or future cross-platform differences warrant separate handling
+         /=============================================================================*/
 
         function getViewportHeight() {
             return window.innerHeight;
@@ -34,9 +34,9 @@ module.exports = function(angularApp) {
 
         /*============================================================================*/
         /* MOTION (EXPORT)
-        /=============================================================================*
-        /   Animation methods for the library
-        /=============================================================================*/
+         /=============================================================================*
+         /   Animation methods for the library
+         /=============================================================================*/
 
         var motion = {
             blinds: blinds,
@@ -367,7 +367,8 @@ module.exports = function(angularApp) {
                     var delayValue = offset / speed / options.finishDelayThrottle;
                     var delay = parseFloat(delayValue).toFixed(2);
                 }
-                animateRippleDom[0].className += ' done';
+                if(animateRippleDom[0])
+                    animateRippleDom[0].className += ' done';
 
             }, speed * options.finishSpeedPercent);
 
@@ -457,7 +458,7 @@ module.exports = function(angularApp) {
         }
 
         /* Export object
-        /============================================================================*/
+         /============================================================================*/
         return motion;
     }
 

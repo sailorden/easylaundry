@@ -41,11 +41,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.finished', {
+      url: '/finished/:address',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/finished.html',
+          controller: 'BrowseCtrl'
         }
       }
     })

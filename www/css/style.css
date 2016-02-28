@@ -177,6 +177,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 .overPlease{
   position: relative;
   top: -27px;
+  left: -30px;
 }
 .popupLaundry img:nth-last-child(1){
   margin-right:0
@@ -196,4 +197,30 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 }
 .popupLaundry span:nth-last-child(1){
   left: 11%
+}
+.backdrop.active {
+  opacity: 0.6;
+}
+.color-yellow i:before{
+  color: #FFD700;
+}
+.item {
+  border-color: #ddd;
+  border-width: 1px;
+  border-style: solid;
+}
+.title-center{
+  left:10px !important;
+}
+.pick-up-washer{
+  top: 62.5% !important;
+}
+.font-big:before{
+  font-size: 50px;
+}
+.modal-wrapper .modal.modal-rate{
+  margin-top: 0px !important;
+}
+.abs{
+  position: absolute;
 }

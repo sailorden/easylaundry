@@ -46181,7 +46181,7 @@ IonicModule
   '$document', '$timeout', '$$rAF',
 function($document, $timeout, $$rAF) {
 
-  var el = jqLite('<div class="backdrop">');
+  var el = jqLite('<div class="backdrop"><img src="/img/loading.gif" class="pin">');
   var backdropHolds = 0;
 
   $document[0].body.appendChild(el[0]);
