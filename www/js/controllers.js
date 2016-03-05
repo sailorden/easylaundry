@@ -1,15 +1,10 @@
 angular.module('starter.controllers', ['ngDialog'])
 
     .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
-      // With the new view caching in Ionic, Controllers are only called
-      // when they are recreated or on app start, instead of every page change.
-      // To listen for when this page is active (for example, to refresh data),
-      // listen for the $ionicView.enter event:
-      //$scope.$on('$ionicView.enter', function(e) {
-      //});
-
-      // Form data for the login modal
+      var device = device || {};
+      var uuid = device.cordova || '1';
+      $scope.ref = new Firebase("https://jas.firebaseio.com/easy/"+uuid);
+      $scope.deviceInfo = {};
 
     }).directive('selectOnClick', ['$timeout', function($timeout) {
       return {
@@ -25,6 +20,14 @@ angular.module('starter.controllers', ['ngDialog'])
     .controller('PlaylistsCtrl', function($scope, ngDialog,$state, $ionicBackdrop, $ionicLoading, $compile, ionicMaterialInk, ionicMaterialMotion, $ionicModal, $timeout, $state) {
       $scope.dialog1 = {};
       $scope.dialog2 = {};
+      $scope.next = function(id){
+        document.getElementById("input"+id).focus();
+      };
+      $scope.blur = function(id){
+        $timeout(function(){
+          document.getElementById("input"+id).blur();
+        },100);
+      };
       $timeout(function(){
         $scope.dialog1 = ngDialog.open({
           template: 'templates/phone-modal.html',
@@ -117,6 +120,9 @@ angular.module('starter.controllers', ['ngDialog'])
             }, 10000);
           },1);
         }
+      };
+      $scope.hi = function(){
+        //alert(1);
       }
       $scope.editToAddress = function(val){
         $scope.editingToAddress = val;
@@ -138,7 +144,8 @@ angular.module('starter.controllers', ['ngDialog'])
         }
         $scope.loading = $ionicLoading.show({
           content: 'Getting current location...',
-          showBackdrop: false
+          showBackdrop: false,
+          duration: 5000
         });
 
         navigator.geolocation.getCurrentPosition(function(pos) {
@@ -304,6 +311,8 @@ angular.module('starter.controllers', ['ngDialog'])
         $state.go('app.finished', {"address": JSON.stringify($scope.address)});
 
       }
+      $scope.code = [];
+
     })
     .controller('PlaylistCtrl', function($scope, $stateParams) {
     })

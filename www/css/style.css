@@ -15,7 +15,7 @@
   right: 4% !important;
 }
 .pickup-button-div{
-  position:fixed;
+  position: absolute;
   left:0px;
   bottom:0px;
   width: 100%;
@@ -24,7 +24,7 @@
   background: rgba(122,122,122,0.9);
 }
 .pickup-button-div-order{
-  position:fixed;
+  position:absolute;
   left:0px;
   bottom:94px;
   width: 100%;
@@ -227,7 +227,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   position: absolute;
 }
 .code-enter{
-  display: inline-flex;
+  display: table-row-group;;
 }
 .code-enter input {
   border: 1px solid #f0f0f0;
@@ -235,6 +235,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   margin: 1px;
   font-size: 24px;
   text-align: right;
+  display: table-row;
 }
 .fixed-down{
   position: relative;

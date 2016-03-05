@@ -35,12 +35,13 @@
   </div>
   <ion-content scroll="false">
     <div id="map" data-tap-disabled="true"></div>
-    <button class="button button-fab button-fab-bottom-right search button-positive icon ion-android-search waves-effect waves-button waves-light"></button>
+    <!--<button class="button button-fab button-fab-bottom-right search button-positive icon ion-android-search waves-effect waves-button waves-light"></button>-->
     <button ng-click="centerOnMe()" class="button button-fab button-fab-bottom-right location button-positive icon ion-navigate waves-effect waves-button waves-light"></button>
-    <img ng-if="pinImg" src="img/pinx24.png" class="pin">
     <div class="mid-bar dark-bg z1 pickup-button-div">
       <div ng-if="address.street && address.neighborhood && !editingAddress">
-        <h3 ng-if="!loading">{{address.street}}&nbsp;<i ng-if="address.street && address.neighborhood" ng-click="editAddress(true)" class="icon ion-edit"></i></h3>
+        <h3 ng-if="!loading">{{address.street}}&nbsp;
+          <a class="button button-icon icon ion-edit button-clear" ng-if="address.street && address.neighborhood" ng-click="editAddress(true)"></a>
+        </h3>
         <h3 ng-if="loading">Loading..</h3>
         <p>{{address.neighborhood}}</p>
       </div>
@@ -52,5 +53,6 @@
         Set pickup
       </button>
     </div>
+    <img ng-if="pinImg" src="img/pinx24.png" class="pin">
   </ion-content>
 </ion-view>

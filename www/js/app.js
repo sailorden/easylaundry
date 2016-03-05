@@ -85,4 +85,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material'])
             });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/playlists');
+    }).directive('focusMe', function($timeout) {
+        return {
+            link: function(scope, element, attrs) {
+                scope.$watch(attrs.focusMe, function(value) {
+                    if(value === true) {
+                        console.log('value=',value);
+                        //$timeout(function() {
+                        element[0].focus();
+                        scope[attrs.focusMe] = false;
+                        //});
+                    }
+                });
+            }
+        };
+    }).directive('numericOnly', function() {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attr, ngModelCtrl) {
+                function fromUser(text) {
+                    var transformedInput = text.replace(/[^0-9|+| ]/g, '');
+                    if(transformedInput !== text) {
+                        ngModelCtrl.$setViewValue(transformedInput);
+                        ngModelCtrl.$render();
+                    }
+                    return transformedInput;  // or return Number(transformedInput)
+                }
+                ngModelCtrl.$parsers.push(fromUser);
+            }
+        };
     });

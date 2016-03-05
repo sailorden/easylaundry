@@ -2,14 +2,14 @@
     <h3 style="text-align: center">Enter the code</h3>
     <h4 style="text-align: center">We sent you a 6 digit code</h4>
     <div class="code-enter" style="text-align: center">
-        <input type="number">
-        <input type="number">
-        <input type="number">
-        <input type="number">
-        <input type="number">
-        <input type="number">
+        <input type="number" id="input0" ng-model="code[0]" minlength="1" ng-maxlength="1" focus-me='true' ng-keypress="next(1)">
+        <input type="number" id="input1" ng-model="code[1]" minlength="1" maxlength="1" ng-keypress="next(2)">
+        <input type="number" id="input2" ng-model="code[2]" minlength="1" maxlength="1" ng-keypress="next(3)">
+        <input type="number" id="input3" ng-model="code[3]" minlength="1" maxlength="1" ng-keypress="next(4)">
+        <input type="number" id="input4" ng-model="code[4]" minlength="1" maxlength="1" ng-keypress="next(5)">
+        <input type="number" id="input5" ng-model="code[5]" minlength="1" maxlength="1" ng-keypress="blur(5)">
     </div>
-    <button class="button button-block button-energized fixed-down" ng-click="finishCode()">
+    <button class="button button-block button-energized fixed-down" ng-click="finishCode()" ng-class="{'disabled':code.length<6}" ng-disabled="code.length<6">
         Finish
     </button>
 </div>
