@@ -1,45 +1,30 @@
-angular.module('starter.controllers', ['ngDialog'])
+angular.module('starter.controllers', ['ngDialog','moment-picker','ngProgress'])
 
-    .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+    .controller('AppCtrl', function($scope,$timeout,ngDialog,$ionicLoading,$ionicBackdrop) {
       var device = device || {};
       var uuid = device.cordova || '1';
       $scope.ref = new Firebase("https://jas.firebaseio.com/easy/"+uuid);
+      $scope.easy = new Firebase("https://jas.firebaseio.com/easy/");
+      $ionicBackdrop.retain();
       $scope.deviceInfo = {};
-
-    }).directive('selectOnClick', ['$timeout', function($timeout) {
-      return {
-        restrict: 'AEC',
-        link: function(scope, elem, attrs) {
-          console.log(elem);
-          elem.bind('click', function() {
-            console.log(elem);
+      $scope.ref.once('value',function(refSnap){
+        $ionicBackdrop.release();
+        $scope.deviceInfo = refSnap.val() || {};
+        $scope.deviceInfo.key = uuid;
+        if(!$scope.deviceInfo.phone){
+          $scope.dialog1 = ngDialog.open({
+            template: 'templates/phone-modal.html',
+            className: 'ngdialog-theme-flat',
+            scope: $scope
           });
+          $timeout(function(){
+            $ionicLoading.hide();
+            $("#mobile-number").intlTelInput();
+          },1000);
         }
-      }
-    }])
-    .controller('PlaylistsCtrl', function($scope, ngDialog,$state, $ionicBackdrop, $ionicLoading, $compile, ionicMaterialInk, ionicMaterialMotion, $ionicModal, $timeout, $state) {
-      $scope.dialog1 = {};
-      $scope.dialog2 = {};
-      $scope.next = function(id){
-        document.getElementById("input"+id).focus();
-      };
-      $scope.blur = function(id){
-        $timeout(function(){
-          document.getElementById("input"+id).blur();
-        },100);
-      };
-      $timeout(function(){
-        $scope.dialog1 = ngDialog.open({
-          template: 'templates/phone-modal.html',
-          className: 'ngdialog-theme-flat',
-          scope: $scope
-        });
-        $timeout(function(){
-          $ionicLoading.hide();
-          $("#mobile-number").intlTelInput();
-        },1000);
       });
       $scope.continue = function(){
+        $scope.ref.child('phone').set({number: $scope.deviceInfo.number, time: Firebase.ServerValue.TIMESTAMP})
         ngDialog.close($scope.dialog1);
         $scope.dialog2 = ngDialog.open({
           template: 'templates/code-modal.html',
@@ -50,7 +35,29 @@ angular.module('starter.controllers', ['ngDialog'])
       $scope.finishCode = function(){
         ngDialog.close($scope.dialog2);
       };
+      $scope.next = function(id){
+        document.getElementById("input"+id).focus();
+      };
+      $scope.blur = function(id){
+        $timeout(function(){
+          document.getElementById("input"+id).blur();
+        },100);
+      };
+    }).directive('selectOnClick', ['$timeout', function($timeout) {
+      return {
+        restrict: 'AEC',
+        link: function(scope, elem, attrs) {
+          elem.bind('click', function() {
+          });
+        }
+      }
+    }])
+    .controller('PlaylistsCtrl', function($scope ,ngDialog,ngProgressFactory,$state, $ionicBackdrop, $ionicLoading, $compile, ionicMaterialInk, ionicMaterialMotion, $ionicModal, $timeout, $state) {
+      $scope.dialog1 = {};
+      $scope.dialog2 = {};
       $scope.pinImg = true;
+      $scope.progressbar = ngProgressFactory.createInstance();
+      $scope.progressbar.setHeight('4px');
       $scope.active = 1;
       $scope.plan = [
         {title: "Laundry",
@@ -86,7 +93,6 @@ angular.module('starter.controllers', ['ngDialog'])
         map.addListener('idle', function() {
           var pos = map.getCenter();
           //marker.setPosition(pos);
-          console.log(pos);
           geocodeLatLng(geocoder, pos);
         });
         $scope.loading = false;
@@ -139,9 +145,6 @@ angular.module('starter.controllers', ['ngDialog'])
         if(!$scope.map) {
           return;
         }
-        $scope.aguantaa = function(){
-          console.log("jaslai");
-        }
         $scope.loading = $ionicLoading.show({
           content: 'Getting current location...',
           showBackdrop: false,
@@ -158,19 +161,20 @@ angular.module('starter.controllers', ['ngDialog'])
       };
       $scope.address = {};
       $scope.toAddress = {};
+      $scope.nowNot = false;
       $scope.notNow = function(){
-        swal({
-          title: "We are sorry",
-          text: "This feature will be available soon :)",
-          timer: 2000,
-          showConfirmButton: false
-        });
+        /*swal({
+         title: "We are sorry",
+         text: "This feature will be available soon :)",
+         timer: 2000,
+         showConfirmButton: false
+         });*/
+        $scope.nowNot = true;
       }
       function geocodeLatLng(geocoder,latlng) {
 
         geocoder.geocode({'location': latlng}, function(results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
-            console.log(results[0]);
             $timeout(function(){
               var full_address = "";
               for(var i =2; i<results[0].address_components.length; i++){
@@ -190,7 +194,6 @@ angular.module('starter.controllers', ['ngDialog'])
         });
       }
       $scope.addressManual = function(geocoder, address){
-        console.log(address);
         $scope.loading = true;
         geocoder.geocode( { 'address': address}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
@@ -207,14 +210,12 @@ angular.module('starter.controllers', ['ngDialog'])
               full_address: full_address,
               geolocation: results[0].geometry.location
             }
-            console.log(results[0].geometry.location);
             $scope.map.setCenter(results[0].geometry.location);
           } else {
             alert("Geocode was not successful for the following reason: " + status);
           }
         });
       }
-      $scope.orderData = {};
       // Create the login modal that we will use later
       $ionicModal.fromTemplateUrl('templates/order.html', {
         scope: $scope
@@ -262,7 +263,6 @@ angular.module('starter.controllers', ['ngDialog'])
           if(isConfirm){
             $scope.address.picture = "https://maps.googleapis.com/maps/api/staticmap?center="+$scope.address.geolocation+"&zoom=18&size=640x640&maptype=roadmap";
             $scope.address.picture+="&markers=icon:http://i.imgur.com/v2OTGza.png?2|"+$scope.address.geolocation+"&key=AIzaSyB_NUmb6TXFR6CpHOlkMpSipswTA_K6FiI";
-            console.log($scope.address);
             $scope.hideTabs = true;
             $scope.bottomStyle = {bottom: "95px"};
             $timeout(function(){
@@ -291,19 +291,35 @@ angular.module('starter.controllers', ['ngDialog'])
         });
 
       };
+      $scope.minDate =  moment().format('LLL');
+      $scope.currentOrder = {};
       $scope.orderNow = function(){
+        $scope.progressbar.start();
+        $scope.orderData = {
+          time: moment().format('LLL'),
+          from: JSON.parse(JSON.stringify($scope.address)),
+          to: $scope.toAddress.street ? JSON.parse(JSON.stringify($scope.toAddress)) : JSON.parse(JSON.stringify($scope.address)),
+          note: $scope.note.text || {},
+          type: ($scope.active-1)
+        };
         $scope.modal.hide();
         $ionicBackdrop.retain();
         $scope.pinImg = false;
-        $timeout(function(){
-          $ionicBackdrop.release();
-          $scope.hideTabs = true;
-          $scope.bottomStyle = {bottom: "95px"};
-          $timeout(function(){
-            $scope.bottomStyle = {bottom: "94px"};
-          }, 1000);
-          $scope.modal2.show();
-        }, 1000);
+        $scope.currentOrder = $scope.easy.child('orders').child($scope.deviceInfo.key).push(
+            $scope.orderData,
+            function(){
+              $timeout(function(){
+                $scope.progressbar.complete();
+                $ionicBackdrop.release();
+                $scope.hideTabs = true;
+                $scope.bottomStyle = {bottom: "95px"};
+                $timeout(function(){
+                  $scope.bottomStyle = {bottom: "94px"};
+                }, 1000);
+                $scope.modal2.show();
+              }, 1000);
+            }
+        );
       }
       $scope.finish = function(){
         $scope.modal2.hide();

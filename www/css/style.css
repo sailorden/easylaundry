@@ -68,6 +68,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-size: 17px;
   background: rgba(255,255,255,0);
   font-weight: 200;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .inputAddress::-webkit-input-placeholder{
     text-align: center;
@@ -76,6 +79,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
     font-size: 24px;
     background: rgba(0,0,0,0);
   font-weight: 100;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .inputAddress:focus{
   text-align: center;
@@ -84,6 +90,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-size: 24px;
   background: rgba(0,0,0,0);
   font-weight: 100;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .inputAddress::-moz-placeholder{
   text-align: center;
@@ -92,6 +101,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-size: 24px;
   background: rgba(0,0,0,0);
   font-weight: 100;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .inputAddress:-ms-input-placeholder{
   text-align: center;
@@ -100,6 +112,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-size: 24px;
   background: rgba(0,0,0,0);
   font-weight: 100;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .inputAddress:not(:focus){
   text-align: center;
@@ -108,6 +123,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-size: 24px;
   background: rgba(0,0,0,0);
   font-weight: 100;
+  margin-left: 0px;
+  display: inline;
+  margin-right: -30px;
 }
 .shownTabs{
   border-bottom: 2px solid #55c9a1 !important;
@@ -240,4 +258,21 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 .fixed-down{
   position: relative;
   top: 60px;
+}
+.font20:before{
+  font-size: 20px !important;
+}
+.moment-picker .moment-picker-container{
+  position: relative !important;
+  max-width: 20px;
+}
+.backgrounded-blue{
+  background: #e4eef5;
+  padding: 10px 13px 15px;
+  border-radius: 4px;
+  min-height: 58px;
+}
+.list a.item {
+  background-color: #EFEFEF;
+  margin-top: 5px;
 }

@@ -7,11 +7,11 @@
       </a>-->
       <a class="tab-item" ng-class="{'active': active==1, 'shownEachTab':hideTabs && active==1}" ng-click="changeTab(1); active=1" ng-show="!hideTabs || active==1">
         <img src="img/hanger.png" class="icon smallicon">
-        Dry Laundry
+        Dry
       </a>
       <a class="tab-item" ng-class="{'active': active==2, 'shownEachTab':hideTabs && active==2}" ng-click="changeTab(2); active=2" ng-show="!hideTabs || active==2">
         <img src="img/complete4.png" class="icon smallicon">
-        Ironed Laundry
+        Ironed
       </a>
     </div>
   </div>
@@ -40,13 +40,14 @@
     <div class="mid-bar dark-bg z1 pickup-button-div">
       <div ng-if="address.street && address.neighborhood && !editingAddress">
         <h3 ng-if="!loading">{{address.street}}&nbsp;
-          <a class="button button-icon icon ion-edit button-clear" ng-if="address.street && address.neighborhood" ng-click="editAddress(true)"></a>
+          <a class="button button-icon icon ion-edit button-clear button-small font20" style="padding: 0;" ng-if="address.street && address.neighborhood" ng-click="editAddress(true)"></a>
         </h3>
         <h3 ng-if="loading">Loading..</h3>
         <p>{{address.neighborhood}}</p>
       </div>
       <div ng-if="editingAddress">
         <input ng-blur="editAddress(false)" type="text" ng-model="address.street" class="inputAddress">
+        <a class="button button-icon icon ion-close-circled button-clear button-small font20" style="padding: 0;line-height: 2.5;" ng-click="address.street=''"></a>
         <p>{{address.neighborhood}}</p>
       </div>
       <button class="button button-block button-calm" ng-click="order()">
